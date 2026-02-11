@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Surprise 💖</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at top, #ffd1dc, #ff9a9e);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(14px);
+    border-radius: 30px;
+    padding: 50px 60px;
+    text-align: center;
+    box-shadow: 0 25px 45px rgba(0,0,0,0.25);
+    position: relative;
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 2.6rem;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 12px rgba(0,0,0,0.3);
+  }
+
+  .tease {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+
+  .buttons {
+    position: relative;
+    height: 140px;
+  }
+
+  button {
+    border: none;
+    padding: 15px 34px;
+    font-size: 1.2rem;
+    border-radius: 40px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  #yes {
+    background: #ff3f7f;
+    color: white;
+    box-shadow: 0 10px 20px rgba(255,63,127,0.5);
+    transition: 0.3s;
+  }
+
+  #yes:hover {
+    transform: scale(1.12);
+    background: #ff1f68;
+  }
+
+  #no {
+    background: white;
+    color: #ff3f7f;
+    position: absolute;
+    left: 180px;
+    top: 20px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+  }
+
+  .message {
+    display: none;
+    color: rgba(11, 0, 3, 0.829);
+    font-size: 2.2rem;
+    margin-top: 25px;
+    animation: pop 1s ease forwards;
+  }
+
+  @keyframes pop {
+    from { opacity: 0; transform: scale(0.6); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .heart, .sparkle {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .heart {
+    color: rgba(255,255,255,0.8);
+    font-size: 22px;
+    animation: float 6s linear infinite;
+  }
+
+  .sparkle {
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: sparkle 1s ease-out forwards;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(100vh); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+  }
+
+  @keyframes sparkle {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(3); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <h1>👰👀🤍ʜᴀᴘᴘʏ ᴠᴀʟᴇɴᴛɪɴᴇ'ꜱ ᴅᴀʏ ꜱᴡᴇᴇᴛᴜᴜ....🫂💌🫴 💕</h1>
+  <div class="tease" id="tease">Say yes 😌💖</div>
+
+  <div class="buttons">
+    <button id="yes">Yes 💖</button>
+    <button id="no">No 🙈</button>
+  </div>
+
+  <div class="message" id="msg">
+    “💖💕ᴍᴀʏ ᴇᴠᴇʀʏ ᴠᴀʟᴇɴᴛɪɴᴇ’ꜱ ᴅᴀʏ ꜰɪɴᴅ ᴜꜱ ᴛᴏɢᴇᴛʜᴇʀ, ʜᴀᴘᴘʏ, ᴀɴᴅ ꜰᴜʟʟ ᴏꜰ ʟᴏᴠᴇ—ᴊᴜꜱᴛ ʟɪᴋᴇ ᴛʜɪꜱ.”🤍
+    “ᴛʜᴀɴᴋ ʏᴏᴜ ꜰᴏʀ ᴄʜᴏᴏꜱɪɴɢ ᴛᴏ ʙᴇ ᴍʏ ᴠᴀʟᴇɴᴛɪɴᴇ & ʟᴏᴠᴇ ʏᴏᴜᴜᴜᴜᴜᴜᴜᴜᴜᴜᴜᴜᴜᴜᴜᴜ ꜱᴏᴏᴏᴏᴏᴏᴏ ᴍᴜᴄʜʜʜʜ ꜱᴡᴇᴇᴛᴜᴜᴜ🤍👀😽.” 💘🥹
+  </div>
+</div>
+
+<script>
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const tease = document.getElementById("tease");
+  const msg = document.getElementById("msg");
+  const card = document.getElementById("card");
+
+  const teaseTexts = [
+    "Hehe nice try 😏",
+    "No chance 😜",
+    "Catch me if you can 😝",
+    "Just click YES 💖",
+    "Ayyoo close 😂",
+    "Sweetuuu say yes Dii 🥹"
+  ];
+
+  // EXACT ESCAPE LOGIC — cursor kitta varumbodhe move
+  document.addEventListener("mousemove", (e) => {
+    const rect = noBtn.getBoundingClientRect();
+    const distance = Math.hypot(
+      e.clientX - (rect.left + rect.width / 2),
+      e.clientY - (rect.top + rect.height / 2)
+    );
+
+    if (distance < 120) {
+      moveNoButton();
+    }
+  });
+
+  function moveNoButton() {
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    tease.innerText = teaseTexts[Math.floor(Math.random() * teaseTexts.length)];
+    sparkleEffect(x + 20, y + 20);
+  }
+
+  yesBtn.addEventListener("click", () => {
+    card.querySelector("h1").style.display = "none";
+    card.querySelector(".buttons").style.display = "none";
+    tease.style.display = "none";
+    msg.style.display = "block";
+    heartsRain();
+  });
+
+  function heartsRain() {
+    for (let i = 0; i < 35; i++) {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.innerHTML = "❤";
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 6000);
+    }
+  }
+
+  function sparkleEffect(x, y) {
+    for (let i = 0; i < 6; i++) {
+      const s = document.createElement("div");
+      s.className = "sparkle";
+      s.style.left = x + Math.random() * 20 + "px";
+      s.style.top = y + Math.random() * 20 + "px";
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 1000);
+    }
+  }
+</script>
+
+</body>
+</html>
